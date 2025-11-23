@@ -43,8 +43,8 @@ graph TB
     
     ERP --> UC_UpdateInfo
     
-    Customer <|-- NewCustomer
-    Customer <|-- ExistingCustomer
+    NewCustomer -.->|is a| Customer
+    ExistingCustomer -.->|is a| Customer
     
     style System fill:#fff9c4,stroke:#f9a825,stroke-width:3px
     style Customer fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
