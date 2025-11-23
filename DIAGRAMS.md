@@ -7,30 +7,30 @@ graph TB
     subgraph System["Hệ Thống Bán Xe Điện"]
         direction TB
         
-        UC_Login[🔐 Đăng Nhập]
-        UC_LoginPhone[📱 Đăng Nhập bằng SĐT]
-        UC_LoginEmail[📧 Đăng Nhập bằng Email]
+        UC_Login["🔐 Đăng Nhập"]
+        UC_LoginPhone["📱 Đăng Nhập bằng SĐT"]
+        UC_LoginEmail["📧 Đăng Nhập bằng Email"]
         
-        UC_Order[💰 Đặt Hàng]
-        UC_OrderPhone[☎️ Đặt Hàng qua Điện Thoại]
-        UC_OrderWeb[🌐 Đặt Hàng qua Website<br/>extension point:<br/>Thông tin khách hàng]
-        UC_UpdateInfo[✏️ Cập Nhật Thông Tin<br/>Khách Hàng]
+        UC_Order["💰 Đặt Hàng"]
+        UC_OrderPhone["☎️ Đặt Hàng qua Điện Thoại"]
+        UC_OrderWeb["🌐 Đặt Hàng qua Website<br/>extension point: Thông tin khách hàng"]
+        UC_UpdateInfo["✏️ Cập Nhật Thông Tin Khách Hàng"]
         
-        UC_Login -.->|<<include>>| UC_LoginPhone
-        UC_Login -.->|<<include>>| UC_LoginEmail
+        UC_Login -.->|include| UC_LoginPhone
+        UC_Login -.->|include| UC_LoginEmail
         
-        UC_Order -.->|<<include>>| UC_OrderPhone
-        UC_Order -.->|<<include>>| UC_OrderWeb
+        UC_Order -.->|include| UC_OrderPhone
+        UC_Order -.->|include| UC_OrderWeb
         
-        UC_UpdateInfo -.->|<<extend>>| UC_OrderWeb
+        UC_UpdateInfo -.->|extend| UC_OrderWeb
     end
     
     subgraph Actors["Actors"]
         direction TB
-        Customer[👤 Khách Hàng]
-        NewCustomer[👤 Khách Hàng Mới]
-        ExistingCustomer[👤 Khách Hàng Cũ]
-        ERP[💼 Hệ Thống ERP<br/>&lt;&lt;actor&gt;&gt;]
+        Customer["👤 Khách Hàng"]
+        NewCustomer["👤 Khách Hàng Mới"]
+        ExistingCustomer["👤 Khách Hàng Cũ"]
+        ERP["💼 Hệ Thống ERP"]
     end
     
     Customer --> UC_Login
