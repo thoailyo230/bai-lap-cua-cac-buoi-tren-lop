@@ -4,106 +4,60 @@
 
 ```mermaid
 graph TB
-    subgraph Actors[" "]
+    subgraph System["Hệ Thống Bán Xe Điện"]
         direction TB
-        Guest[👤 Khách Hàng<br/>Chưa Đăng Nhập]
-        Customer[👤 Khách Hàng<br/>Đã Đăng Nhập]
-        Admin[👨‍💼 Quản Trị Viên]
+        
+        UC_Login[🔐 Đăng Nhập]
+        UC_LoginPhone[📱 Đăng Nhập bằng SĐT]
+        UC_LoginEmail[📧 Đăng Nhập bằng Email]
+        
+        UC_Order[💰 Đặt Hàng]
+        UC_OrderPhone[☎️ Đặt Hàng qua Điện Thoại]
+        UC_OrderWeb[🌐 Đặt Hàng qua Website<br/>extension point:<br/>Thông tin khách hàng]
+        UC_UpdateInfo[✏️ Cập Nhật Thông Tin<br/>Khách Hàng]
+        
+        UC_Login -.->|<<include>>| UC_LoginPhone
+        UC_Login -.->|<<include>>| UC_LoginEmail
+        
+        UC_Order -.->|<<include>>| UC_OrderPhone
+        UC_Order -.->|<<include>>| UC_OrderWeb
+        
+        UC_UpdateInfo -.->|<<extend>>| UC_OrderWeb
     end
     
-    subgraph GuestUC["Chức Năng Khách Chưa Đăng Nhập"]
+    subgraph Actors["Actors"]
         direction TB
-        UC1[📋 Xem Danh Sách Sản Phẩm]
-        UC2[🔍 Tìm Kiếm Sản Phẩm]
-        UC3[👁️ Xem Chi Tiết Sản Phẩm]
-        UC4[⚖️ So Sánh Sản Phẩm]
-        UC5[📝 Đăng Ký Tài Khoản]
-        UC6[🔐 Đăng Nhập]
-        UC13[💬 Chat với AI]
-        UC15[🛡️ Kiểm Tra Bảo Hành]
+        Customer[👤 Khách Hàng]
+        NewCustomer[👤 Khách Hàng Mới]
+        ExistingCustomer[👤 Khách Hàng Cũ]
+        ERP[💼 Hệ Thống ERP<br/>&lt;&lt;actor&gt;&gt;]
     end
     
-    subgraph CustomerUC["Chức Năng Khách Hàng"]
-        direction TB
-        UC7[🛒 Thêm Vào Giỏ Hàng]
-        UC8[🛍️ Xem Giỏ Hàng]
-        UC9[✏️ Cập Nhật Giỏ Hàng]
-        UC10[💰 Đặt Hàng]
-        UC11[📦 Xem Đơn Hàng]
-        UC12[👤 Quản Lý Thông Tin]
-        UC14[👥 Chat với Nhân Viên]
-    end
+    Customer --> UC_Login
+    Customer --> UC_Order
     
-    subgraph AdminUC["Chức Năng Quản Trị"]
-        direction TB
-        UC16[📦 Quản Lý Sản Phẩm]
-        UC17[📂 Quản Lý Danh Mục]
-        UC18[🏢 Quản Lý Thương Hiệu]
-        UC19[📋 Quản Lý Đơn Hàng]
-        UC20[📊 Xem Doanh Thu]
-        UC21[👥 Quản Lý Người Dùng]
-        UC22[📧 Gửi Email Marketing]
-        UC23[💬 Quản Lý Live Chat]
-    end
+    NewCustomer --> UC_OrderPhone
+    NewCustomer --> UC_OrderWeb
     
-    Guest --> UC1
-    Guest --> UC2
-    Guest --> UC3
-    Guest --> UC4
-    Guest --> UC5
-    Guest --> UC6
-    Guest --> UC13
-    Guest --> UC15
+    ExistingCustomer --> UC_OrderWeb
     
-    Customer --> UC1
-    Customer --> UC2
-    Customer --> UC3
-    Customer --> UC4
-    Customer --> UC7
-    Customer --> UC8
-    Customer --> UC9
-    Customer --> UC10
-    Customer --> UC11
-    Customer --> UC12
-    Customer --> UC13
-    Customer --> UC14
-    Customer --> UC15
+    ERP --> UC_UpdateInfo
     
-    Admin --> UC16
-    Admin --> UC17
-    Admin --> UC18
-    Admin --> UC19
-    Admin --> UC20
-    Admin --> UC21
-    Admin --> UC22
-    Admin --> UC23
+    Customer <|-- NewCustomer
+    Customer <|-- ExistingCustomer
     
-    style Guest fill:#e1f5ff,stroke:#01579b,stroke-width:2px
-    style Customer fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
-    style Admin fill:#fff3e0,stroke:#e65100,stroke-width:2px
-    style UC1 fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1px
-    style UC2 fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1px
-    style UC3 fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1px
-    style UC4 fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1px
-    style UC5 fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1px
-    style UC6 fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1px
-    style UC7 fill:#e8f5e9,stroke:#388e3c,stroke-width:1px
-    style UC8 fill:#e8f5e9,stroke:#388e3c,stroke-width:1px
-    style UC9 fill:#e8f5e9,stroke:#388e3c,stroke-width:1px
-    style UC10 fill:#e8f5e9,stroke:#388e3c,stroke-width:1px
-    style UC11 fill:#e8f5e9,stroke:#388e3c,stroke-width:1px
-    style UC12 fill:#e8f5e9,stroke:#388e3c,stroke-width:1px
-    style UC13 fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1px
-    style UC14 fill:#e8f5e9,stroke:#388e3c,stroke-width:1px
-    style UC15 fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1px
-    style UC16 fill:#fff3e0,stroke:#f57c00,stroke-width:1px
-    style UC17 fill:#fff3e0,stroke:#f57c00,stroke-width:1px
-    style UC18 fill:#fff3e0,stroke:#f57c00,stroke-width:1px
-    style UC19 fill:#fff3e0,stroke:#f57c00,stroke-width:1px
-    style UC20 fill:#fff3e0,stroke:#f57c00,stroke-width:1px
-    style UC21 fill:#fff3e0,stroke:#f57c00,stroke-width:1px
-    style UC22 fill:#fff3e0,stroke:#f57c00,stroke-width:1px
-    style UC23 fill:#fff3e0,stroke:#f57c00,stroke-width:1px
+    style System fill:#fff9c4,stroke:#f9a825,stroke-width:3px
+    style Customer fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style NewCustomer fill:#c8e6c9,stroke:#388e3c,stroke-width:2px
+    style ExistingCustomer fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style ERP fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style UC_Login fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+    style UC_LoginPhone fill:#e8f5e9,stroke:#388e3c,stroke-width:1px
+    style UC_LoginEmail fill:#e8f5e9,stroke:#388e3c,stroke-width:1px
+    style UC_Order fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style UC_OrderPhone fill:#fce4ec,stroke:#c2185b,stroke-width:1px
+    style UC_OrderWeb fill:#fce4ec,stroke:#c2185b,stroke-width:1px
+    style UC_UpdateInfo fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
 ```
 
 ## 2. DFD Level 0 (Context Diagram)
