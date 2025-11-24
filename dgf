@@ -1,1 +1,22 @@
 
+%%{init: {'theme':'neutral','themeVariables':{'fontSize':'12px'},'flowchart':{'nodeSpacing':18,'rankSpacing':28}}}%%
+flowchart TD
+    Start([Bắt đầu]) --> Browse[Duyệt sản phẩm]
+    Browse -->|Chưa chọn| Browse
+    Browse -->|Chọn| Login{Đã đăng nhập?}
+    Login -->|Chưa| Auth[Đăng nhập / Đăng ký]
+    Auth --> Cart[Thêm giỏ hàng]
+    Login -->|Rồi| Cart
+    Cart --> Checkout[Thanh toán]
+    Checkout --> Info[Điền thông tin giao hàng]
+    Info --> Pay{Phương thức?}
+    Pay -->|COD| OrderCOD[Tạo đơn COD]
+    Pay -->|Chuyển khoản| OrderBank[Tạo đơn chuyển khoản]
+    Pay -->|ZaloPay| Zalo[Xử lý ZaloPay]
+    Zalo -->|Thành công| OrderZ[Tạo đơn ZaloPay]
+    Zalo -->|Thất bại| Checkout
+    OrderCOD --> Email[Gửi email xác nhận]
+    OrderBank --> Email
+    OrderZ --> Email
+    Email --> Clear[Xóa giỏ hàng]
+    Clear --> End([Kết thúc])
